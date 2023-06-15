@@ -5,7 +5,7 @@ import {fontColorWhite, primaryColor} from '../assets/colors/colors';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootScreens} from './RootNavigation';
-import AboutScreen from '../screens/AboutScreen';
+import SettingScreen from '../screens/SettingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,17 +60,17 @@ export default function BottomTabBarScreen({
         }}
       />
       <Tab.Screen
-        name="AboutScreen"
-        component={AboutScreen}
+        name="SettingScreen"
+        component={SettingScreen}
         options={{
           headerShown: true,
           tabBarIcon: bar =>
             bar.focused ? (
-              <Icon name="user" size={25} color={'tomato'} />
+              <Icon name="setting" size={25} color={'tomato'} />
             ) : (
-              <Icon name="user" size={25} color={'white'} />
+              <Icon name="setting" size={25} color={'white'} />
             ),
-          title: 'About',
+          title: 'Settings',
           headerStyle: {backgroundColor: primaryColor},
           headerTitleStyle: {color: fontColorWhite},
         }}

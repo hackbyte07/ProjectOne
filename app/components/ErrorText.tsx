@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginHorizontal: 15,
         marginVertical: 5,
-        color: 'red'        
+        color: 'tomato'        
     }
 });

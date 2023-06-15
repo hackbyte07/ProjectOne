@@ -16,6 +16,7 @@ import NetInfo from '@react-native-community/netinfo';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import NoInternetScreen from '../screens/NoInternetScreen';
 import {primaryColor} from '../assets/colors/colors';
+import AboutScreen from '../screens/AboutScreen';
 
 export type RootScreens = {
   SplashScreen: undefined;
@@ -31,6 +32,8 @@ export type RootScreens = {
     key: string;
   };
   NoInternetScreen: undefined;
+  AboutScreen: undefined;
+  PrivacyScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootScreens>();
@@ -82,6 +85,11 @@ const RootNavigation = () => {
               <Stack.Screen name="DetailScreen" component={DetailScreen} />
               <Stack.Screen name="SectionScreen" component={SectionScreen} />
               <Stack.Screen
+                name="AboutScreen"
+                component={AboutScreen}
+                options={{headerShown: true}}
+              />
+              <Stack.Screen
                 name="YoutubeVideoScreen"
                 component={YoutubeVideoScreen}
                 options={{
@@ -112,6 +120,11 @@ const RootNavigation = () => {
                   headerStyle: {backgroundColor: primaryColor},
                   headerTintColor: 'white',
                 }}
+              />
+              <Stack.Screen
+                name="AboutScreen"
+                component={AboutScreen}
+                options={{headerShown: true}}
               />
             </Stack.Group>
           )

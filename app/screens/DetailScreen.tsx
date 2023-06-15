@@ -57,8 +57,9 @@ const DetailScreen = ({
     dispatch(getMoviesVideo(data.id));
     dispatch(getMoviesSimilar(data.id));
     const subscriber = moviesCollection.onSnapshot(doc => {
+      const dataId = data.id.toString();
       doc.forEach(result => {
-        if (result.id === data.id.toString()) {
+        if (result.id === dataId) {
           setFavorite(true);
           return;
         }
