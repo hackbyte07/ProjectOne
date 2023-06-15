@@ -53,10 +53,11 @@ const HomeScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient colors={backgroundColor} style={styles.container}
-      
-      start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-      >
+      <LinearGradient
+        colors={backgroundColor}
+        style={styles.container}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}>
         {upcomingMovies.loading ? (
           <ScreenLoadingComponent />
         ) : (

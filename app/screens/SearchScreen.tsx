@@ -56,81 +56,81 @@ const SearchScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient style={styles.container} colors={backgroundColor}
-      start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-      >
-
-  
-      <View style={styles.appBarContainer}>
-        <Icon
-          name="arrowleft"
-          size={25}
-          style={styles.icon}
-          onPress={() => navigation.pop()}
-          color={fontColorWhite}
-        />
-        <View style={styles.textInputContainer}>
-          <TextInput
-            ref={keyBoardRef}
-            style={styles.textInput}
-            placeholder="Search..."
-            onChangeText={newValue => setSearch(newValue)}
-            onChange={handleSearchMovies}
-            value={search}
-            numberOfLines={1}
-            maxLength={50}
-            cursorColor={'tomato'}
-            placeholderTextColor={fontColorWhite}
-            onSubmitEditing={() => handleSearchMovies()}
-          />
+      <LinearGradient
+        style={styles.container}
+        colors={backgroundColor}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}>
+        <View style={styles.appBarContainer}>
           <Icon
-            name="close"
+            name="arrowleft"
             size={25}
+            style={styles.icon}
+            onPress={() => navigation.pop()}
             color={fontColorWhite}
-            onPress={() => setSearch('')}
           />
+          <View style={styles.textInputContainer}>
+            <TextInput
+              ref={keyBoardRef}
+              style={styles.textInput}
+              placeholder="Search..."
+              onChangeText={newValue => setSearch(newValue)}
+              onChange={handleSearchMovies}
+              value={search}
+              numberOfLines={1}
+              maxLength={50}
+              cursorColor={'tomato'}
+              placeholderTextColor={fontColorWhite}
+              onSubmitEditing={() => handleSearchMovies()}
+            />
+            <Icon
+              name="close"
+              size={25}
+              color={fontColorWhite}
+              onPress={() => setSearch('')}
+            />
+          </View>
         </View>
-      </View>
 
-      {searchVisible ? (
-        <React.Fragment>
-          {searchMovies.loading ? (
-            <ScreenLoadingComponent />
-          ) : (
-            <React.Fragment>
-              {searchMovies.data.total_results < 1 ? (
-                <Text style={styles.noSearchResultText}>No Result Found</Text>
-              ) : (
-                <FlatList
-                  data={searchMovies.data.results}
-                  keyExtractor={item => item.id.toString()}
-                  numColumns={2}
-                  contentContainerStyle={styles.listContentStyle}
-                  renderItem={item => (
-                    <MovieItemLargeVertical
-                      title={item.item.title}
-                      image={item.item.poster_path}
-                      onPress={() => {
-                        navigation.navigate('DetailScreen', item.item);
-                      }}
-                    />
-                  )}
-                />
-              )}
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      ) : (
-        <View style={styles.lottieViewContainer}>
-          <AnimatedLottieView
-            style={styles.lottieView}
-            source={require('../assets/lottie/searching.json')}
-            autoPlay
-            loop
-          />
-        </View>
-      )}
-          </LinearGradient>
+        {searchVisible ? (
+          <React.Fragment>
+            {searchMovies.loading ? (
+              <ScreenLoadingComponent />
+            ) : (
+              <React.Fragment>
+                {searchMovies.data.total_results < 1 ? (
+                  <Text style={styles.noSearchResultText}>No Result Found</Text>
+                ) : (
+                  <FlatList
+                    data={searchMovies.data.results}
+                    keyExtractor={item => item.id.toString()}
+                    numColumns={2}
+                    contentContainerStyle={styles.listContentStyle}
+                    renderItem={item => (
+                      <MovieItemLargeVertical
+                        title={item.item.title}
+                        image={item.item.poster_path}
+                        onPress={() => {
+                          navigation.navigate('DetailScreen', item.item);
+                        }}
+                      />
+                    )}
+                  />
+                )}
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        ) : (
+          <View style={styles.lottieViewContainer}>
+            <AnimatedLottieView
+              style={styles.lottieView}
+              source={require('../assets/lottie/searching.json')}
+              autoPlay
+              loop
+            />
+          </View>
+        )}
+      </LinearGradient>
     </SafeAreaView>
   );
 };
@@ -140,7 +140,6 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
   },
   appBarContainer: {
     flexDirection: 'row',

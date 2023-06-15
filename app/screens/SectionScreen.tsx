@@ -1,24 +1,32 @@
-import {Dimensions, FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootScreens} from '../navigation/RootNavigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {fontColorWhite, primaryColor} from '../assets/colors/colors';
 import {initialStateType} from '../redux/slice/moviesSlice/moviesPopular';
-import {createNowPlayingSelector, createPopularSelector, createTopRatedSelector, createUpcomingSelector} from '../redux/store/store';
+import {
+  createNowPlayingSelector,
+  createPopularSelector,
+  createTopRatedSelector,
+  createUpcomingSelector,
+} from '../redux/store/store';
 import {useSelector} from 'react-redux';
 import MovieItemLargeVertical from '../components/MovieItemLargeVertical';
 
-
-const {width} = Dimensions.get('screen')
+const {width} = Dimensions.get('screen');
 
 const SectionScreen = ({
   navigation,
   route,
 }: NativeStackScreenProps<RootScreens, 'SectionScreen'>) => {
-
-    
-
   const movies: () => initialStateType = useCallback(() => {
     const title = route.params.title;
     if (title === 'Now Playing') {
@@ -35,7 +43,12 @@ const SectionScreen = ({
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.appRowContainer}>
-        <Icon name="arrowleft" size={25} onPress={() => navigation.pop()} color={'white'}/>
+        <Icon
+          name="arrowleft"
+          size={25}
+          onPress={() => navigation.pop()}
+          color={'white'}
+        />
         <Text style={styles.heading}>{route.params.title}</Text>
       </View>
       <FlatList
@@ -68,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width,
     padding: 15,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listContentStyle: {
     alignItems: 'center',
@@ -77,6 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: fontColorWhite,
-    marginLeft: '30%'
-  }
+    marginLeft: '30%',
+  },
 });

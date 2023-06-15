@@ -63,7 +63,7 @@ export default function BottomTabBarScreen({
         name="AboutScreen"
         component={AboutScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: bar =>
             bar.focused ? (
               <Icon name="user" size={25} color={'tomato'} />
@@ -71,6 +71,8 @@ export default function BottomTabBarScreen({
               <Icon name="user" size={25} color={'white'} />
             ),
           title: 'About',
+          headerStyle: {backgroundColor: primaryColor},
+          headerTitleStyle: {color: fontColorWhite},
         }}
       />
     </Tab.Navigator>

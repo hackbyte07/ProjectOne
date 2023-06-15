@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -38,13 +39,15 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(6).label('Password'),
 });
 
+const {height, width} = Dimensions.get('screen')
+
 const LoginScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
   const progress = useSharedValue(0);
 
   const imageAnimStyle = useAnimatedStyle(() => {
     return {
       opacity: withTiming(progress.value),
-      transform: [{scale: withSpring(progress.value)}],
+      transform: [{scale: withSpring(progress.value)}]
     };
   });
 
@@ -162,7 +165,6 @@ const styles = StyleSheet.create({
   bg: {
     flex: 1,
     justifyContent: 'center',
-   
   },
   image: {
     height: 100,
@@ -208,10 +210,12 @@ const styles = StyleSheet.create({
     color: fontColorWhite,
     fontWeight: 'bold',
     marginVertical: 5,
-    
   },
   actIndicator: {
     position: 'absolute',
     alignSelf: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    height,
+    width
   },
 });

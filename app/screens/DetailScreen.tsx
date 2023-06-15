@@ -91,8 +91,8 @@ const DetailScreen = ({
             style={styles.iconHeart}
             onPress={() => {
               deleteFromFavorite(data.id).then(result => {
-                ToastAndroid.show('Deleted from Favorites', 1000)
-                setFavorite(false)
+                ToastAndroid.show('Deleted from Favorites', 1000);
+                setFavorite(false);
               });
             }}
           />
@@ -289,6 +289,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: fontColorWhite,
     paddingLeft: 15,
-
-  }
+  },
 });

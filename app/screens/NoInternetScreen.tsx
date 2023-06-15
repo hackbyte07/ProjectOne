@@ -7,11 +7,10 @@ const NoInternetScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <AnimatedLottieView
-      style={styles.animation}
-      source={{uri: '../assets/lottie/no-internet.json'}} />
-      <Text>
-        No Internet
-      </Text>
+        style={styles.animation}
+        source={{uri: '../assets/lottie/no-internet.json'}}
+      />
+      <Text>No Internet</Text>
     </SafeAreaView>
   );
 };
@@ -19,14 +18,14 @@ const NoInternetScreen = () => {
 export default NoInternetScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    animation: {
-        height: 400,
-        width: 400,
-        aspectRatio: 1
-    }
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  animation: {
+    height: 400,
+    width: 400,
+    aspectRatio: 1,
+  },
 });

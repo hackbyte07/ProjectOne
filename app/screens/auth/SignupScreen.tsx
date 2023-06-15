@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import React, {useMemo} from 'react';
 import {Formik} from 'formik';
@@ -41,6 +42,8 @@ const validationSchema = Yup.object().shape({
     .min(6)
     .label('Confirm Password'),
 });
+
+const {height, width} = Dimensions.get('screen')
 
 const SignupScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
   const genderRadioButton = useMemo(
@@ -233,5 +236,8 @@ const styles = StyleSheet.create({
   actIndicator: {
     position: 'absolute',
     alignSelf: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    height,
+    width,
   },
 });
