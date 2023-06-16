@@ -15,7 +15,7 @@ import YoutubeVideoScreen from '../screens/YoutubeVideoScreen';
 import NetInfo from '@react-native-community/netinfo';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import NoInternetScreen from '../screens/NoInternetScreen';
-import {primaryColor} from '../assets/colors/colors';
+import {fontColorWhite, primaryColor} from '../assets/colors/colors';
 import AboutScreen from '../screens/AboutScreen';
 
 export type RootScreens = {
@@ -74,7 +74,12 @@ const RootNavigation = () => {
           />
         ) : internet ? (
           user ? (
-            <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Group
+              screenOptions={{
+                headerShown: false,
+                headerStyle: {backgroundColor: primaryColor},
+                headerTitleStyle: {color: fontColorWhite},
+              }}>
               <Stack.Screen
                 name="BottomTabBarScreen"
                 component={BottomTabBarScreen}

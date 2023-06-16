@@ -32,13 +32,11 @@ export default SettingItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: width - 30,
     height: 50,
-    marginHorizontal: 15,
     marginVertical: 7.5,
     paddingHorizontal: 15,
     borderRadius: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   view: {
     flexDirection: 'row',
@@ -48,6 +46,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: 'white',
-    marginLeft: width / 3,
+    marginLeft: 15
   },
 });

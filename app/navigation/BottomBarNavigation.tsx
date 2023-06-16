@@ -57,6 +57,7 @@ export default function BottomTabBarScreen({
 
           headerStyle: {backgroundColor: primaryColor},
           headerTitleStyle: {color: fontColorWhite},
+          headerTintColor: fontColorWhite,
         }}
       />
       <Tab.Screen
