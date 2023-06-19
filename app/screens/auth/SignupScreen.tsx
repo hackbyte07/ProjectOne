@@ -34,7 +34,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().min(3).label('Name'),
   email: Yup.string().required().email().label('Email'),
-  // address: Yup.string().required().min(3).label('Address'),
+  phone: Yup.string().required().min(10).label('Phone'),
   password: Yup.string().required().min(6).label('Password'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords do not match')
@@ -43,7 +43,7 @@ const validationSchema = Yup.object().shape({
     .label('Confirm Password'),
 });
 
-const {height, width} = Dimensions.get('screen')
+const {height, width} = Dimensions.get('screen');
 
 const SignupScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
   const genderRadioButton = useMemo(
@@ -76,7 +76,7 @@ const SignupScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
           initialValues={{
             name: '',
             email: '',
-            // address: '',
+            phone: 0,
             password: '',
             confirmPassword: '',
           }}
@@ -88,10 +88,14 @@ const SignupScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
               .then(result => {
                 setLoading(false);
                 if (result) {
-                  createUser(value.name, value.email);
+                  createUser(value.name, value.email, value.phone);
                   Alert.alert(
                     'Requested',
                     'Please verify your email address. Link has been sent',
+                    [{
+                      text: 'Ok',
+                      onPress: () => navigation.pop()
+                    }]
                   );
                 } else {
                   Alert.alert('Failed', 'Registration is Not Successful');
@@ -128,14 +132,15 @@ const SignupScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
                 onBlur={() => setFieldTouched('email', true)}
               />
               <ErrorText visible={touched.email} text={errors.email} />
-              {/* <TextInput
+              <TextInput
                 style={styles.input}
-                placeholder="Address"
+                placeholder="Phone"
                 placeholderTextColor={fontColorWhite}
-                onChangeText={handleChange('address')}
-                onBlur={() => setFieldTouched('address', true)}
+                onChangeText={handleChange('phone')}
+                onBlur={() => setFieldTouched('phone', true)}
+                keyboardType="phone-pad"
               />
-              <ErrorText visible={touched.address} text={errors.address} /> */}
+              <ErrorText visible={touched.phone} text={errors.phone} />
               <TextInput
                 style={styles.input}
                 placeholder="Password"

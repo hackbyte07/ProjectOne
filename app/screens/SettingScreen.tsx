@@ -1,23 +1,31 @@
-import {Alert, Button, Image, Modal, StyleSheet, Text} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import {
+  Alert,
+  Button,
+  Image,
+  Linking,
+  Modal,
+  StyleSheet,
+  Text,
+} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootScreens} from '../navigation/RootNavigation';
 import LinearGradient from 'react-native-linear-gradient';
-import {backgroundColor} from '../assets/colors/colors';
+import {backgroundColor, fontColorWhite} from '../assets/colors/colors';
 import SettingItem from '../components/settings_screen/SettingItem';
 
 import {View} from 'react-native';
 import {Dimensions} from 'react-native';
-import {usePreventRemoveContext} from '@react-navigation/native';
-import {useAnimatedGestureHandler} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
   ImagePickerResponse,
-  launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/auth';
+import {useEffect} from 'react';
+import {userCollections, userType} from '../firebase/firestore/usersDb';
+import {TouchableOpacity} from 'react-native';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -27,7 +35,26 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
     ImagePickerResponse | undefined | null
   >(null);
 
-  const user = firebase.auth().currentUser;
+  const [user, setUser] = useState<userType>();
+
+  useEffect(() => {
+    const currentUser =
+      firebase.auth().currentUser?.email !== null
+        ? firebase.auth().currentUser?.email?.toString()
+        : '';
+    if (currentUser !== '') {
+      userCollections
+        .doc(currentUser)
+        .get()
+        .then(result => {
+          setUser(result.data() as userType);
+        })
+        .catch(error => console.log(error));
+    }
+    return () => {
+      setModal(false)
+    }
+  }, []);
 
   const launchImagePicker = useCallback(async () => {
     try {
@@ -59,7 +86,13 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
           icon="info"
           onPress={() => navigation.navigate('AboutScreen')}
         />
-        <SettingItem title="Privacy policy" icon="slack" onPress={() => {}} />
+        <SettingItem
+          title="Privacy policy"
+          icon="slack"
+          onPress={() => {
+            Linking.openURL('https://www.google.com');
+          }}
+        />
         <View style={styles.button}>
           <Button
             title="Logout"
@@ -70,13 +103,13 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
                 [
                   {
                     text: 'Cancel',
-                    onPress: () => {}
+                    onPress: () => {},
                   },
                   {
                     text: 'Logout',
                     onPress: () => {
-                      firebase.auth().signOut()
-                      navigation.replace('LoginScreen')
+                      firebase.auth().signOut();
+                      navigation.replace('LoginScreen');
                     },
                   },
                 ],
@@ -117,7 +150,18 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
                 />
               )}
             </View>
-            <Text style={styles.email}>{'Email - ' + user?.email}</Text>
+            <Text style={styles.text}>{'Name - ' + user?.name}</Text>
+            <Text style={styles.text}>{'Email - ' + user?.email}</Text>
+            <Text style={styles.text}>{'Phone - ' + user?.phoneNumber}</Text>
+
+            <TouchableOpacity
+              style={styles.editView}
+              onPress={() => {
+                navigation.navigate('ProfileEditScreen');
+              }}>
+              <Icon name="edit" size={25} color={fontColorWhite} />
+              <Text style={styles.editText}>Edit</Text>
+            </TouchableOpacity>
           </View>
         </Modal>
       </LinearGradient>
@@ -139,7 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modalView: {
-    height: height / 2,
+    height: height / 2.5,
     backgroundColor: 'white',
     marginHorizontal: 15,
     marginTop: height / 5,
@@ -165,14 +209,30 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
   },
-  email: {
+  text: {
     fontSize: 18,
     textAlign: 'center',
-    paddingVertical: 15,
+    marginTop: 15,
   },
   button: {
     width: width / 2,
     alignSelf: 'center',
     marginTop: 25,
+  },
+  editView: {
+    flexDirection: 'row',
+    backgroundColor: 'dodgerblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    marginTop: 25,
+    borderRadius: 5,
+    width: 100,
+    alignSelf: 'center',
+  },
+  editText: {
+    marginLeft: 10,
+    fontSize: 18,
+    color: fontColorWhite,
   },
 });

@@ -17,6 +17,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import NoInternetScreen from '../screens/NoInternetScreen';
 import {fontColorWhite, primaryColor} from '../assets/colors/colors';
 import AboutScreen from '../screens/AboutScreen';
+import ProfileEditScreen from '../screens/ProfileEditScreen';
 
 export type RootScreens = {
   SplashScreen: undefined;
@@ -34,6 +35,7 @@ export type RootScreens = {
   NoInternetScreen: undefined;
   AboutScreen: undefined;
   PrivacyScreen: undefined;
+  ProfileEditScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootScreens>();
@@ -92,7 +94,20 @@ const RootNavigation = () => {
               <Stack.Screen
                 name="AboutScreen"
                 component={AboutScreen}
-                options={{headerShown: true}}
+                options={{
+                  headerShown: true,
+                  headerTintColor: 'white',
+                  title: 'About',
+                }}
+              />
+              <Stack.Screen
+                name="ProfileEditScreen"
+                component={ProfileEditScreen}
+                options={{
+                  headerShown: true,
+                  headerTintColor: 'white',
+                  title: 'Profile',
+                }}
               />
               <Stack.Screen
                 name="YoutubeVideoScreen"
@@ -127,9 +142,18 @@ const RootNavigation = () => {
                 }}
               />
               <Stack.Screen
+                name="ProfileEditScreen"
+                component={ProfileEditScreen}
+                options={{
+                  headerShown: true,
+                  headerTintColor: 'white',
+                  title: 'Profile',
+                }}
+              />
+              <Stack.Screen
                 name="AboutScreen"
                 component={AboutScreen}
-                options={{headerShown: true}}
+                options={{headerShown: true, title: 'About'}}
               />
             </Stack.Group>
           )

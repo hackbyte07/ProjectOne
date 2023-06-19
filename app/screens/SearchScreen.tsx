@@ -22,7 +22,6 @@ import ScreenLoadingComponent from '../components/ScreenLoadingComponent';
 import {
   backgroundColor,
   fontColorWhite,
-  primaryColor,
   secondaryColor,
 } from '../assets/colors/colors';
 import MovieItemLargeVertical from '../components/MovieItemLargeVertical';
