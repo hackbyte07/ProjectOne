@@ -51,22 +51,6 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
         })
         .catch(error => console.log(error));
     }
-    return () => {
-      setModal(false);
-    };
-  }, []);
-
-  const launchImagePicker = useCallback(async () => {
-    try {
-      const request = await launchImageLibrary(
-        {
-          mediaType: 'photo',
-          includeBase64: false,
-          selectionLimit: 1,
-        },
-        setPickerResponse,
-      );
-    } catch (error) {}
   }, []);
 
   return (
@@ -136,19 +120,7 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
               }}
             />
             <View style={styles.picIconCont}>
-              {pickerResponse !== null &&
-              pickerResponse?.assets !== undefined ? (
-                <Image
-                  source={{uri: pickerResponse?.assets[0].uri}}
-                  style={styles.imageIcon}
-                />
-              ) : (
-                <Icon
-                  name="picture"
-                  size={50}
-                  onPress={() => launchImagePicker()}
-                />
-              )}
+              <Icon name="picture" size={50} />
             </View>
             <Text style={styles.text}>{'Name - ' + user?.name}</Text>
             <Text style={styles.text}>{'Email - ' + user?.email}</Text>
@@ -189,7 +161,6 @@ const styles = StyleSheet.create({
     marginTop: height / 5,
     elevation: 5,
     borderRadius: 15,
-
   },
   closeIcon: {
     alignSelf: 'flex-end',

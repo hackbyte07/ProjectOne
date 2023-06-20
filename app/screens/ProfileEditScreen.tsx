@@ -1,8 +1,10 @@
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -11,7 +13,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {backgroundColor, fontColorWhite} from '../assets/colors/colors';
 import {firebase} from '@react-native-firebase/auth';
-import {userType, userCollections} from '../firebase/firestore/usersDb';
+import {
+  userType,
+  userCollections,
+  editUser,
+} from '../firebase/firestore/usersDb';
 
 import {useTheme} from '@react-navigation/native';
 import EditTextInput from '../components/EditTextInput';
@@ -30,6 +36,22 @@ const ProfileEditScreen = () => {
   const [pickerResponse, setPickerResponse] = useState<
     ImagePickerResponse | undefined | null
   >(null);
+
+  const handleProfileSave = useCallback(() => {
+    const inName = name.trim();
+    const inPhone = phoneNumber.trim();
+    if (inName.length < 3) {
+      ToastAndroid.show('Name must be minimum of 3 digits', 1000);
+      return;
+    }
+    if (inPhone.length !== 10) {
+      ToastAndroid.show('Phone must be 10 digits', 1000);
+      return;
+    }
+    editUser(name, phoneNumber, email).then(result => {
+      Alert.alert('Update', 'User updated successfully');
+    });
+  }, [name, phoneNumber]);
 
   useEffect(() => {
     const currentUser =
@@ -86,27 +108,24 @@ const ProfileEditScreen = () => {
           )}
         </View>
         <View style={styles.spacer} />
+        <Text style={styles.text}>{`Email - ${user?.email}`}</Text>
+
+        <View style={styles.spacer} />
         <Text style={styles.text}>{`Name - ${user?.name}`}</Text>
         <EditTextInput
           value={name}
           onValueChange={newValue => setName(newValue)}
           keyBoardType="default"
         />
-        <View style={styles.spacer} />
-        <Text style={styles.text}>{`Email - ${user?.email}`}</Text>
-        <EditTextInput
-          value={email}
-          onValueChange={newValue => setEmail(newValue)}
-          keyBoardType="default"
-        />
+
         <View style={styles.spacer} />
         <Text style={styles.text}>{`Phone no. - ${user?.phoneNumber}`}</Text>
         <EditTextInput
           value={phoneNumber}
           onValueChange={newValue => setPhoneNumber(newValue)}
-          keyBoardType="default"
+          keyBoardType="phone-pad"
         />
-        <TouchableOpacity style={styles.editView} onPress={() => {}}>
+        <TouchableOpacity style={styles.editView} onPress={handleProfileSave}>
           <Icon name="save" size={25} color={fontColorWhite} />
           <Text style={styles.editText}>Save</Text>
         </TouchableOpacity>
