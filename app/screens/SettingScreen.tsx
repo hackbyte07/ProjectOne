@@ -52,8 +52,8 @@ const SettingScreen = ({navigation}: NativeStackScreenProps<RootScreens>) => {
         .catch(error => console.log(error));
     }
     return () => {
-      setModal(false)
-    }
+      setModal(false);
+    };
   }, []);
 
   const launchImagePicker = useCallback(async () => {
@@ -184,11 +184,12 @@ const styles = StyleSheet.create({
   },
   modalView: {
     height: height / 2.5,
-    backgroundColor: 'white',
+    backgroundColor: 'silver',
     marginHorizontal: 15,
     marginTop: height / 5,
     elevation: 5,
     borderRadius: 15,
+
   },
   closeIcon: {
     alignSelf: 'flex-end',
